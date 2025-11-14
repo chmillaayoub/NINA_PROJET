@@ -1,5 +1,10 @@
 # 💫 About Us:
-We as a group are currently working on Serveur annuaire + Messagerie Simple
+## Group Members : 
+### Ayoub Chmilla 
+### Ilyass Oulhaj
+### Daoud Ahbachou
+### Ali Anoya
+### Abderhmane Aroussi
 
 
 # 💻 Tech Stack:

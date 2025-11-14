@@ -7,13 +7,16 @@ public class AnnuaireServer {
     
     private static final int PORT = 12345; 
 
-   
+    // 1. 🗺️ L'Annuaire (Stockage des Contacts) - BQA KIMA HOWA
     public static final Map<String, Contact> annuaire = new ConcurrentHashMap<>();
 
+    // 2. 🔗 Le Registre des Clients Actifs (Nécessaire pour la Messagerie)
+    // --- TGHAYIR (CHANGE) ---
+    // Mabqach 'Object', wela 'ClientHandler'
+    public static final Map<String, ClientHandler> activeClientHandlers = new ConcurrentHashMap<>();
     
-    public static final Map<String, Object> activeClientHandlers = new ConcurrentHashMap<>();
     
-    
+    // --- LOGIQUE ADD (Membre 2) - BQA KIMA HOWA ---
     public static String handleAddCommand(String[] parts) {
         if (parts.length != 4) {
             return "ERROR: Syntax ADD invalide. Utilisation: ADD Nom Tel Email";
@@ -32,7 +35,7 @@ public class AnnuaireServer {
         }
     }
 
-
+    // --- LOGIQUE LIST (Membre 2) - BQA KIMA HOWA ---
     public static String handleListCommand() {
         if (annuaire.isEmpty()) {
             return "INFO: L'annuaire est actuellement vide.";
@@ -49,55 +52,38 @@ public class AnnuaireServer {
         return listResult.toString();
     }
     
+    // --- Squelette TCP principal (Membre 2 - Tâche 1) ---
     public static void main(String[] args) {
-        System.out.println("Serveur Annuaire démarré sur le port " + PORT + "...");
+        System.out.println("🚀 Serveur (Annuaire + Messagerie) démarré sur le port " + PORT + "...");
+        
+        // --- TGHAYIR (CHANGE) ---
+        // Ghadi nkhdmo b l-Multi-threading
         
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             
+            // Boucle principale d'écoute
             while (true) {
+                // serverSocket.accept() katbqa tsna client jdid
                 Socket clientSocket = serverSocket.accept(); 
-                System.out.println("\nNouveau client en attente de traitement: " + clientSocket.getInetAddress());
+                System.out.println("\n✅ Nouveau client connecté: " + clientSocket.getInetAddress());
 
+                // *********************************************************************
+                // Hna khdmt "Membre 3" (Multi-Thread)
+                // Kanchdo l-client jdid o kan3tiwh l-Thread dyalo (ClientHandler)
                 
-                handleSingleRequest(clientSocket);
+                ClientHandler clientThread = new ClientHandler(clientSocket);
+                clientThread.start(); // <-- Hada howa l-point l-mohim
+                
+                // --- SQUELETTE SIMPLIFIÉ (Non Multi-Threadé) MCHA ---
+                // handleSingleRequest(clientSocket); <-- HADI T7YDAT
+                // -----------------------------------------------------------------
             }
         } catch (IOException e) {
-            System.err.println(" Erreur critique du serveur: " + e.getMessage());
+            System.err.println("❌ Erreur critique du serveur: " + e.getMessage());
         }
     }
     
-    
-    private static void handleSingleRequest(Socket clientSocket) {
-         try (
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)
-         ) {
-            String clientCommand = in.readLine();
-            String response = "ERROR: Commande non traitée ou vide."; 
-
-            if (clientCommand != null) {
-                System.out.println("   -> Reçu: " + clientCommand);
-                String[] parts = clientCommand.trim().split("\\s+", 4); 
-                String commandType = parts[0].toUpperCase();
-
-                switch (commandType) {
-                    case "ADD":
-                        response = handleAddCommand(parts);
-                        break;
-                    case "LIST":
-                        response = handleListCommand();
-                        break;
-                    default:
-                        response = "ERROR: Commande '" + commandType + "' inconnue.";
-                        break;
-                }
-            }
-            
-            out.println(response);
-            System.out.println("   <- Renvoyé: " + response.split("\n")[0] + "...");
-            
-        } catch (IOException e) {
-            System.err.println("   ! Erreur de communication avec le client: " + e.getMessage());
-        }
-    }
+    // --- TGHAYIR (CHANGE) ---
+    // L-fonction 'handleSingleRequest' t7ydat.
+    // L-Logic dyalha mcha l-ClientHandler.java
 }

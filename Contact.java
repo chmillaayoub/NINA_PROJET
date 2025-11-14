@@ -14,10 +14,8 @@ public class Contact {
         return nom;
     }
 
-
     @Override
     public String toString() {
-        // Format: Nom | Tel: [Numéro] | Email: [Adresse]
         return nom + " | Tel: " + telephone + " | Email: " + email;
     }
 }

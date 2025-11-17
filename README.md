@@ -105,6 +105,9 @@ Le serveur répond aux commandes textuelles suivantes (envoyées via un client T
 # 💻 Tech Stack:
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 
+## ✉ Team Member Contributions : 
+
+
 # ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
 

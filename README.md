@@ -2,7 +2,7 @@
 ## <img width="32" height="32" alt="group" src="https://github.com/user-attachments/assets/408ca25f-d27a-40b2-98da-a667cb8175bc" /> Group Members : 
 ### - Ayoub Chmilla 
 ### - Ilyass Oulhaj
-### - Daoud Ahbachou
+### - Daoud Ahbachou : https://github.com/Thegoat1111-afk
 ### - Ali Anoya
 ### - Abderhmane Aroussi
 

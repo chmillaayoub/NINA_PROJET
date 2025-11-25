@@ -32,7 +32,7 @@ L'objectif principal est de démontrer la gestion de multiples clients (concurre
 
 Le projet est structuré autour de 3 classes principales :
 
-1.  **`AnnuaireServer.java` **
+1.  **`AnnuaireServer.java`**
     * Contient la méthode `main()`.
     * Ouvre le `ServerSocket` et attend les connexions.
     * Pour chaque client qui se connecte, il crée et lance un nouveau `Thread` (`ClientHandler`).
@@ -40,7 +40,7 @@ Le projet est structuré autour de 3 classes principales :
         * `annuaire`: Stocke *tous* les contacts (Nom -> Objet Contact).
         * `activeClientHandlers`: Stocke *uniquement* les clients en ligne (Nom -> Objet ClientHandler).
 
-2.  **`ClientHandler.java`)**
+2.  **`ClientHandler.java`**
     * Hérite de `Thread`.
     * Gère le cycle de vie complet d'un seul client.
     * Contient la boucle `while(true)` qui lit les commandes du client (`in.readLine()`).
